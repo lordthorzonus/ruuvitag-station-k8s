@@ -9,7 +9,7 @@ spec:
   releaseName: chronograf
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
-    name: stable/chronograf
+    name: chronograf
     version: 1.1.0
   values:
     image:
