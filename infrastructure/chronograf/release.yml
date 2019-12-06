@@ -1,3 +1,4 @@
+---
 apiVersion: flux.weave.works/v1beta1
 kind: HelmRelease
 metadata:
@@ -14,7 +15,7 @@ spec:
   values:
     image:
       repository: quay.io/influxdb/chronograf
-      tag: 1.7.12
+      tag: 1.7.15
     ingress:
       enabled: true
       hostname: chronograf.internal.juusoleinonen.fi
@@ -24,6 +25,6 @@ spec:
         nginx.ingress.kubernetes.io/auth-url: "https://auth.internal.juusoleinonen.fi/oauth2/auth"
         nginx.ingress.kubernetes.io/auth-signin: "https://auth.internal.juusoleinonen.fi/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
       tls:
-        - secretName: chronograf-https-cert
-          hosts:
-            - chronograf.internal.juusoleinonen.fi
+      - secretName: chronograf-https-cert
+        hosts:
+        - chronograf.internal.juusoleinonen.fi
