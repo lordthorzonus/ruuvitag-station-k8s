@@ -8,7 +8,7 @@ metadata:
 spec:
   releaseName: chronograf
   chart:
-    git: git@github.com/billimek/charts
+    git: git@github.com:billimek/charts.git
     ref: chronograf_k8s_1.16
     path: stable/chronograf
   values:
