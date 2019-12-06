@@ -2,7 +2,6 @@ apiVersion: flux.weave.works/v1beta1
 kind: HelmRelease
 metadata:
   name: oauth2-proxy
-  namespace: oauth2-proxy
   annotations:
     fluxcd.io/automated: "true"
     fluxcd.io/tag.chart-image: semver:^4.0.0

@@ -4,13 +4,13 @@ metadata:
   name: chronograf
   annotations:
     fluxcd.io/automated: "true"
-    fluxcd.io/tag.chart-image: semver:^1.17.12
+    fluxcd.io/tag.chart-image: semver:^1.7.12
 spec:
   releaseName: chronograf
   chart:
-    repository: https://kubernetes-charts.storage.googleapis.com/
-    name: chronograf
-    version: 1.1.0
+    git: git@github.com/billimek/charts
+    ref: chronograf_k8s_1.16
+    path: stable/chronograf
   values:
     image:
       repository: quay.io/influxdb/chronograf
