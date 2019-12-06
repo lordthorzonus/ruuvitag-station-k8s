@@ -17,6 +17,6 @@ spec:
   values:
     image:
       repository: quay.io/jetstack/cert-manager-controller
-      tag: v0.9.0
+      tag: canary
     webhook:
       enabled: false
