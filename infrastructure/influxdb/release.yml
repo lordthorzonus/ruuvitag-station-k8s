@@ -10,7 +10,7 @@ spec:
   chart:
     repository: https://charts.bitnami.com/bitnami
     name: influxdb
-    version: 0.2.1
+    version: 0.2.5
   values:
     architecture: high-availability
     authEnabled: true
@@ -19,8 +19,6 @@ spec:
       tag: 1.7.9
     metrics:
       enabled: true
-      serviceMonitor:
-        enabled: true
     relay:
       replicaCount: 2
     influxdb:
