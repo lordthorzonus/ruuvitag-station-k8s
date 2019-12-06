@@ -13,6 +13,7 @@ spec:
     version: 0.2.5
   values:
     architecture: high-availability
+    authEnabled: true
     image:
       repository: bitnami/influxdb
       tag: 1.7.9
@@ -26,7 +27,7 @@ spec:
         type: ClusterIP
     networkPolicy:
       enabled: true
-      allowExternal: false
+      allowExternal: true
     persistence:
       enabled: true
   valuesFrom:
