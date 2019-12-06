@@ -14,7 +14,7 @@ spec:
   values:
     operator:
       logLevel: error
-    alertManager:
+    alertmanager:
       logLevel: error
       replicaCount: 2
       ingress:
