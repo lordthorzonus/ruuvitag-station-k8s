@@ -1,0 +1,48 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: prometheus-operator
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: prometheus-operator
+  chart:
+    repository: https://charts.bitnami.com/bitnami
+    name: prometheus-operator
+    version: 0.7.1
+  values:
+    operator:
+      logLevel: error
+    alertManager:
+      logLevel: error
+      replicaCount: 2
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/auth-url: "https://auth.internal.juusoleinonen.fi/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://auth.internal.juusoleinonen.fi/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+        hosts:
+          - name: alertmanager.internal.juusoleinonen.fi
+        tls:
+          - secretName: alertmanager-https-cert
+            hosts:
+              - alertmanager.internal.juusoleinonen.fi
+    prometheus:
+      logLevel: error
+      replicaCount: 2
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/auth-url: "https://auth.internal.juusoleinonen.fi/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://auth.internal.juusoleinonen.fi/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+        hosts:
+          - name: prometheus.internal.juusoleinonen.fi
+        tls:
+          - secretName: prometheus-https-cert
+            hosts:
+              - prometheus.internal.juusoleinonen.fi
