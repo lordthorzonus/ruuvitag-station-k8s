@@ -10,7 +10,7 @@ spec:
   chart:
     repository: https://charts.bitnami.com/bitnami
     name: bitnami/influxdb
-    version: v0.2.5
+    version: 0.2.5
   values:
     architecture: high-availability
     image:
