@@ -1,0 +1,34 @@
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: influxdb
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: semver:^1.7.9
+spec:
+  releaseName: influxdb
+  chart:
+    repository: https://charts.bitnami.com/bitnami
+    name: bitnami/influxdb
+    version: v0.2.5
+  values:
+    architecture: high-availability
+    image:
+      repository: bitnami/influxdb
+      tag: 1.7.9
+    metrics:
+      enabled: true
+    relay:
+      replicaCount: 2
+    influxdb:
+      replicaCount: 2
+      service:
+        type: ClusterIP
+    networkPolicy:
+      enabled: true
+      allowExternal: false
+    persistence:
+      enabled: true
+  valuesFrom:
+    - secretKeyRef:
+        name: influxdb-config
