@@ -14,7 +14,7 @@ spec:
   values:
     image:
       repository: rabbitmq
-      tag: 3.8.0-alpine
+      tag: 3.8.2-alpine
     prometheus:
       operator:
         enabled: true
