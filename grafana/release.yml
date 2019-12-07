@@ -3,7 +3,6 @@ apiVersion: flux.weave.works/v1beta1
 kind: HelmRelease
 metadata:
   name: grafana
-  namespace: grafana
   annotations:
     fluxcd.io/automated: "true"
     fluxcd.io/tag.chart-image: semver:^6.5.1
