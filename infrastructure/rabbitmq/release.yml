@@ -9,7 +9,7 @@ spec:
   releaseName: rabbitmq
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
-    name: rabbitmq
+    name: rabbitmq-ha
     version: 1.36.4
   values:
     image:
