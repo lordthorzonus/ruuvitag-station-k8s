@@ -24,7 +24,7 @@ spec:
         kubernetes.io/ingress.class: nginx
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - name: grafana.juusoleinonen.fi
+        - grafana.juusoleinonen.fi
       tls:
         - secretName: grafana-https-cert
           hosts:
