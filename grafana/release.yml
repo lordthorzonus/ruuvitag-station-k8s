@@ -87,5 +87,3 @@ spec:
         enabled: true
       datasources:
         enabled: true
-    admin:
-      existingSecret: grafana-admin-credentials
