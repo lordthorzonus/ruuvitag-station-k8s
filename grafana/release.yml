@@ -1,5 +1,5 @@
 ---
-apiVersion: flux.weave.works/v1beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: grafana
@@ -9,6 +9,9 @@ metadata:
 spec:
   releaseName: grafana
   targetNamespace: grafana
+  rollback:
+    enable: true
+    force: true
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: grafana
