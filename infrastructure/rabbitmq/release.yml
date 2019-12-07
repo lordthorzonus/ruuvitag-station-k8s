@@ -1,0 +1,40 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: rabbitmq
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: rabbitmq
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: rabbitmq-ha
+    version: 1.36.4
+  values:
+    image:
+      repository: rabbitmq
+      tag: 3.8.2
+    prometheus:
+      operator:
+        enabled: true
+        serviceMonitor:
+          namespace: default
+    ingress:
+      enabled: true
+      hostName: rabbitmq.internal.juusoleinonen.fi
+      tls: true
+      tlsSecret: rabbitmq-management-https-cert
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/auth-url: "https://auth.internal.juusoleinonen.fi/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://auth.internal.juusoleinonen.fi/oauth2/start?rd=https%3A%2F%2F$host$request_uri"
+    rabbitmqPrometheusPlugin:
+      enabled: true
+    replicaCount: 2
+    persistentVolume:
+      enabled: true
+  valuesFrom:
+    - secretKeyRef:
+        name: rabbitmq-config
