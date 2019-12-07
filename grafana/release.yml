@@ -1,0 +1,81 @@
+---
+apiVersion: flux.weave.works/v1beta1
+kind: HelmRelease
+metadata:
+  name: grafana
+  namespace: grafana
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.chart-image: semver:^6.5.1
+spec:
+  releaseName: grafana
+  targetNamespace: grafana
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    name: grafana
+    version: 4.1.1
+  values:
+    image:
+      repository: grafana/grafana
+      tag: 6.5.1
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - name: grafana.juusoleinonen.fi
+    tls:
+      - secretName: grafana-https-cert
+        hosts:
+          - grafana.juusoleinonen.fi
+  persistence:
+    enabled: true
+    storageClassName: do-block-storage
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus-operator-prometheus.default:9090/
+          access: proxy
+          isDefault: false
+  dashboards:
+    prometheus-stats:
+      gnetId: 2
+      revision: 2
+      datasource: Prometheus
+    kubernetes-cluster-monitoring:
+      gnetId: 1621
+      revision: 1
+      datasource: Prometheus
+    kubernetes-resource-requests:
+      gnetId: 7187
+      revision: 1
+      datasource: Prometheus
+    kubernetes-capacity:
+      gnetId: 5309
+      revision: 1
+      datasource: Prometheus
+    kubernetes-pods:
+      gnetId: 6336
+      revision: 1
+      datasource: Prometheus
+    kubernetes-cluster:
+      gnetId: 6417
+      revision: 1
+      datasource: Prometheus
+    nginx-ingress:
+      url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.yaml
+      datasource: Prometheus
+  sidecar:
+    dashboards:
+      enabled: true
+    datasources:
+      enabled: true
+  admin:
+    existingSecret: grafana-admin-credentials
