@@ -9,13 +9,10 @@ metadata:
 spec:
   releaseName: grafana
   targetNamespace: grafana
-  rollback:
-    enable: true
-    force: true
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com/
     name: grafana
-    version: 4.1.0
+    version: 4.1.1
   values:
     image:
       repository: grafana/grafana
