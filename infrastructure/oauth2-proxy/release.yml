@@ -1,3 +1,4 @@
+---
 apiVersion: flux.weave.works/v1beta1
 kind: HelmRelease
 metadata:
@@ -14,7 +15,7 @@ spec:
   values:
     image:
       repository: quay.io/pusher/oauth2_proxy
-      tag: v4.0.0
+      tag: v4.1.0
     config:
       existingSecret: oauth2-proxy-credentials
     extraArgs:
@@ -29,11 +30,11 @@ spec:
       enabled: true
       path: /
       hosts:
-        - auth.internal.juusoleinonen.fi
+      - auth.internal.juusoleinonen.fi
       annotations:
         kubernetes.io/ingress.class: nginx
         cert-manager.io/cluster-issuer: letsencrypt-prod
       tls:
-        - secretName: oauth2-proxy-https-cert
-          hosts:
-            - auth.internal.juusoleinonen.fi
+      - secretName: oauth2-proxy-https-cert
+        hosts:
+        - auth.internal.juusoleinonen.fi
