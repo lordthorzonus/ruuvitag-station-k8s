@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: grafana/grafana
-      tag: 6.5.1
+      tag: 6.5.2
     plugins: grafana-kubernetes-app
     ingress:
       enabled: true
@@ -24,38 +24,38 @@ spec:
         kubernetes.io/ingress.class: nginx
         cert-manager.io/cluster-issuer: letsencrypt-prod
       hosts:
-        - grafana.juusoleinonen.fi
+      - grafana.juusoleinonen.fi
       tls:
-        - secretName: grafana-https-cert
-          hosts:
-            - grafana.juusoleinonen.fi
+      - secretName: grafana-https-cert
+        hosts:
+        - grafana.juusoleinonen.fi
     persistence:
       enabled: true
       storageClassName: do-block-storage
       accessModes:
-        - ReadWriteOnce
+      - ReadWriteOnce
       size: 5Gi
     datasources:
       datasources.yaml:
         apiVersion: 1
         datasources:
-          - name: Prometheus
-            type: prometheus
-            url: http://prometheus-operator-prometheus.default:9090/
-            access: proxy
-            isDefault: false
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus-operator-prometheus.default:9090/
+          access: proxy
+          isDefault: false
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
         providers:
-          - name: 'default'
-            orgId: 1
-            folder: ''
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards
+        - name: 'default'
+          orgId: 1
+          folder: ''
+          type: file
+          disableDeletion: false
+          editable: true
+          options:
+            path: /var/lib/grafana/dashboards
     dashboards:
       default:
         prometheus-stats:
