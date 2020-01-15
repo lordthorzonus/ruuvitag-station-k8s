@@ -16,7 +16,7 @@ spec:
   values:
     image:
       repository: grafana/grafana
-      tag: 6.5.2
+      tag: 6.5.3
     plugins: grafana-kubernetes-app
     ingress:
       enabled: true
